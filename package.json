@@ -1,0 +1,29 @@
+{
+  "name": "rhmam-service",
+  "version": "0.0.1",
+  "description": "",
+  "main": "application.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "nodemon -e js,json -i portal application.js"
+  },
+  "author": "keyang.xiang@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^3.4.7",
+    "body-parser": "^1.16.1",
+    "browserify": "^14.1.0",
+    "cors": "^2.8.1",
+    "express": "^4.14.1",
+    "fh-mbaas-api": "^6.1.5",
+    "lodash": "^4.17.4",
+    "mongoose": "^4.8.2",
+    "request": "^2.79.0",
+    "socket.io": "^1.7.2",
+    "uuid": "^3.0.1",
+    "winston": "^2.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
