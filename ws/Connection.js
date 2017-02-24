@@ -6,10 +6,11 @@ var EventEmitter = require('events').EventEmitter;
 var util = require('util');
 var fromServer = "server";
 var device = require('./device');
+
 function Connection(socket, id) {
   EventEmitter.call(this);
-  // this.retry = 3;
-  // this.retryDelay = 2;
+  this.retry = 3;
+  this.retryDelay = 5;
   this.timeout = 5000;
   this.id = id;
   this.type = "unknown";//mobile, admin, unknown
@@ -125,7 +126,10 @@ Connection.prototype.sendMsgWithResponse = function (params) {
       }, rej);
   });
 }
-Connection.prototype.heartBeat = function () {
+Connection.prototype.heartBeat = function (count) {
+  if (count === undefined){
+    count=self.retry;
+  }
   var self = this;
   return this.sendMsgWithResponse({
     msgType: "general-heart-beat",
@@ -133,8 +137,15 @@ Connection.prototype.heartBeat = function () {
     from: fromServer
   })
     .then(function () { }, function () {
-      log.info("Connection " + self.id + " died.");
-      connectionMgr.removeConnection(self);
+      count --;
+      if (count>0){
+        return Promise.delay(self.retryDelay*1000).then(function(){
+          return self.heartBeat(count);
+        }) 
+      }else{
+        log.info("Connection " + self.id + " died.");
+        connectionMgr.removeConnection(self);
+      }
     })
 }
 
