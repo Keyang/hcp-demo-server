@@ -15,12 +15,12 @@ r.get('/client.js', function (req, res) {
   //     res.end("window._mamurl='"+getFullUrl(req).split('/client.js')[0]+"';\n"+buf.toString("utf8"));
   //   })
   host=req.query.host?req.query.host:host; 
+  var _mamurl="window._mamurl='"+host+"';\n";
   if (clientScript){
-    res.end(clientScript);
+    res.end(_mamurl+clientScript);
   }else{
-    clientScript="window._mamurl='"+host+"';\n";
-    clientScript+=require('fs').readFileSync(__dirname+"/client.js","utf8");
-    res.end(clientScript);
+    clientScript=require('fs').readFileSync(__dirname+"/client.js","utf8");
+    res.end(_mamurl+clientScript);
   }
 })
 
