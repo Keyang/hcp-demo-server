@@ -128,7 +128,7 @@ Connection.prototype.sendMsgWithResponse = function (params) {
 }
 Connection.prototype.heartBeat = function (count) {
   if (count === undefined){
-    count=self.retry;
+    count=this.retry;
   }
   var self = this;
   return this.sendMsgWithResponse({
