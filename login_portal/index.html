@@ -1,0 +1,29 @@
+<h1>Welcome to DSB Mobile App Admin Portal</h1>
+<h3>Please enter your AD username and password</h3>
+<div>
+  <div>Username: <input id='username' value='SVC_P_RedhatMAP' /></div>
+  <div>Password: <input id='password' type='password' value='oGZfArzMbWQEvXBcsuA1gIYpiWu4nq' /></div>
+  <div>
+    <button type='button' onclick='login()'>Login</button>
+  </div>
+</div>
+<script>
+  function login(){
+    var xhr=new XMLHttpRequest();
+    xhr.open('POST','/login');
+    var dataObj={
+      username:document.querySelector('#username').value,
+      password:document.querySelector('#password').value
+    }
+    xhr.setRequestHeader('Content-Type','application/json');
+    xhr.onloadend=function(){
+      if (xhr.status !=200){
+        alert(xhr.responseText);
+      }else{
+        location="/";
+      }
+    }
+
+    xhr.send(JSON.stringify(dataObj));
+  }
+</script>
