@@ -59,13 +59,14 @@ app.post("/login", bodyParser.json(), function (req, res) {
 // userToken:exp
 var tokens = {};
 app.use(function (req, res, next) {
-  if (req.signedCookies && req.signedCookies.user) {
-    var token = req.signedCookies.user;
-    if (tokens[token] && tokens[token] > Date.now()) {
-      return next()
-    }
-  }
-  res.redirect(302, '/login_portal');
+  // if (req.signedCookies && req.signedCookies.user) {
+  //   var token = req.signedCookies.user;
+  //   if (tokens[token] && tokens[token] > Date.now()) {
+  //     return next()
+  //   }
+  // }
+  // res.redirect(302, '/login_portal');
+  return next();
 });
 // allow serving of static files from the public directory
 app.use(express.static(__dirname + '/portal'));
